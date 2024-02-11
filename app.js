@@ -1,16 +1,16 @@
 fetch("markers.json")
         .then(response => response.json())
-        .then(markers => {
+        .then(data => {
             var miniMap = document.getElementById("miniMap");
-            miniMap.src = "plane.png";
+            miniMap.src = data.plane;
 
             var miniMapContainer = document.getElementById("miniMapContainer");
             var miniMapWidth = miniMapContainer.offsetWidth;
             var miniMapHeight = miniMapContainer.offsetHeight;
 
             // Load first view
-            if (markers.length > 0) {
-                var firstMarker = markers[0];
+            if (data.markers.length > 0) {
+                var firstMarker = data.markers[0];
                 pannellum.viewer('panorama', {
                     "type": "equirectangular",
                     "panorama": firstMarker.file,
@@ -21,7 +21,7 @@ fetch("markers.json")
                 });
             }
 
-            markers.forEach(marker => {
+            data.markers.forEach(marker => {
                 var markerElement = document.createElement("div");
                 markerElement.id = marker.id;
                 markerElement.className = "marker";

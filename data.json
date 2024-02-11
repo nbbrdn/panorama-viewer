@@ -1,0 +1,29 @@
+{
+    "plane": "images/plane.png",
+    "markers": [
+        {
+            "id": "marker1",
+            "x": 100,
+            "y": 80,
+            "file": "images/marker1.jpg"
+        },
+        {
+            "id": "marker2",
+            "x": 150,
+            "y": 200,
+            "file": "images/marker2.jpg"
+        },
+        {
+            "id": "marker3",
+            "x": 390,
+            "y": 120,
+            "file": "images/marker3.jpg"
+        },
+        {
+            "id": "marker4",
+            "x": 360,
+            "y": 200,
+            "file": "images/marker4.jpg"
+        }
+    ]
+}
