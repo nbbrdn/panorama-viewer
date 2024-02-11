@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panorama Viewer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <style>
+    #panorama {
+        width: 1200px;
+        height: 800px;
+    }
+    </style>
+</head>
+<body>
+
+<div id="panorama"></div>
+<div id="miniMapContainer" style="position: absolute; top: 10px; left: 10px; width: 500px; height: 300px;">
+    <img id="miniMap" alt="Mini Map" style="width:100%; height: 100%; opacity: 50%;">
+</div>
+
+<script>
+    fetch("markers.json")
+        .then(response => response.json())
+        .then(markers => {
+            var miniMap = document.getElementById("miniMap");
+            miniMap.src = "plane.png";
+
+            var miniMapContainer = document.getElementById("miniMapContainer");
+            var miniMapWidth = miniMapContainer.offsetWidth;
+            var miniMapHeight = miniMapContainer.offsetHeight;
+
+            markers.forEach(marker => {
+                var markerElement = document.createElement("div");
+                markerElement.id = marker.id;
+                markerElement.className = "marker";
+                markerElement.style.position = "absolute";
+                markerElement.style.width = "20px";
+                markerElement.style.height = "20px";
+                markerElement.style.backgroundColor = "green";
+                markerElement.style.borderRadius = "50%";
+                markerElement.style.cursor = "pointer";
+
+                // Calculate marker coordinates
+                var markerXPercent = (marker.x / miniMapWidth) * 100;
+                var markerYPercent = (marker.y / miniMapHeight) * 100;
+
+                markerElement.style.top = markerYPercent + "%";
+                markerElement.style.left = markerXPercent + "%";
+
+                miniMapContainer.appendChild(markerElement);
+
+                // Add event listener
+                markerElement.addEventListener("click", function() {
+                    pannellum.viewer('panorama', {
+                        "type": "equirectangular",
+                        "panorama": "img_" + marker.id + ".jpg",
+                        "autoLoad": true,
+                        "showControls": false,
+                        "autoRotate": -2,
+                        "compass": false,
+                    });    
+                });
+            });
+        })
+        .catch(error => console.error("Error loading markers:", error))
+</script>
+
+</body>
+</html>
