@@ -31,6 +31,19 @@
             var miniMapWidth = miniMapContainer.offsetWidth;
             var miniMapHeight = miniMapContainer.offsetHeight;
 
+            // Load first view
+            if (markers.length > 0) {
+                var firstMarker = markers[0];
+                pannellum.viewer('panorama', {
+                    "type": "equirectangular",
+                    "panorama": "img_" + firstMarker.id + ".jpg",
+                    "autoLoad": true,
+                    "showControls": false,
+                    "autoRotate": -2,
+                    "compass": false,
+                });
+            }
+
             markers.forEach(marker => {
                 var markerElement = document.createElement("div");
                 markerElement.id = marker.id;
