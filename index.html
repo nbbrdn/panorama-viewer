@@ -4,15 +4,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panorama Viewer</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://naver.github.io/egjs-view360/release/latest/css/view360.min.css">
+	<link rel="stylesheet" href="	https://naver.github.io/egjs-view360/release/latest/css/control-bar.min.css">
+
+    <script src="https://naver.github.io/egjs-view360/release/4.0.0-beta.7/view360.pkgd.js"></script>
 </head>
 <body>
+<div class="container"  onclick="openModal()">
+    <div class="text">360&deg;</div>
+</div>
 
-<div id="panorama" class="canvas-frame"></div>
-<div id="miniMapContainer" class="map-container">
-    <img id="miniMap" class="mini-map" alt="Mini Map" src="">
+
+<div class="modal" id="modal-360">
+    <div id="viewer" class="view360-container is-16by9" >
+        <canvas class="view360-canvas" />
+    </div>
+    <div class="close-button" onclick="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="white"/>
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+    </div>
+    <div class="map-box">
+		<div class="map">
+			<div class="map-points"> </div>
+			<img class="img-map" src="images/plane.png">
+		</div>
+	</div>
 </div>
 
 <script src="app.js"></script>
