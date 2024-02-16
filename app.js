@@ -19,6 +19,5 @@ function openModal() {
 }
 
 function closeModal() {
-    console.log("dbg");
     document.getElementById('modal-360').style.display = 'none';
 }
