@@ -69,7 +69,7 @@ body {
     left: 4px;
     opacity: 50%
 }
-.map{
+.mini-map{
     display: inline-block;
     position: relative;
     width: 100%;
@@ -78,4 +78,17 @@ body {
 .img-map{
     width: 100%;
     height: 100%;
+}
+
+.marker{
+    width: 10px;
+    height: 10px;
+    background: #00FFFF;
+    position: absolute;
+    cursor: pointer;
+    left: 0%;
+    top: 0%;
+}
+.marker-active{
+    background: #ff0000;
 }
