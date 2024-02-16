@@ -1,66 +1,75 @@
-var viewer360 = new View360("#viewer", {
-  initialZoom: 0.5,
-  autoplay: {
-    delay: 5000,
-    delayOnMouseLeave: 1000,
-    pauseOnHover: true,
-    speed: 0.2,
-  },
-  projection: new View360.EquirectProjection({
-    src: 'images/marker1.jpg',
-    video: false,
+let viewer360;
 
-  }),
-});
 
-function openModal() {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "data.json", false);
-  xhr.send();
+const showModal = async () => {
+  const modal = document.getElementById('modal-360');
+  modal.style.display = 'block';
 
-  if (xhr.status == 200) {
-    let data = JSON.parse(xhr.responseText);
+  try {
+    const response = await fetch('data.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data.json (${response.status} ${response.statusText})`);
+    }
 
-    let imgMapContainer = document.getElementById("imgMap");
+    const data = await response.json();
+
+    viewer360 = new View360("#viewer", {
+      initialZoom: 0.5,
+      autoplay: {
+        delay: 5000,
+        delayOnMouseLeave: 1000,
+        pauseOnHover: true,
+        speed: 0.2,
+      },
+      projection: new View360.EquirectProjection({
+        src: data.markers[0].src,
+        video: false,
+      }),
+    });
+
+    const imgMapContainer = document.getElementById("imgMap");
     imgMapContainer.src = data.plane;
 
-    imgMapContainer.onload = function() {
+    imgMapContainer.onload = () => {
       const miniMapContainer = document.getElementById("miniMap");
       const miniMapWidth = miniMapContainer.offsetWidth;
       const miniMapHeight = miniMapContainer.offsetHeight;
 
-      data.markers.forEach(marker => add_marker(marker.x, marker.y, marker.src, miniMapWidth, miniMapHeight));
+      data.markers.forEach(({ x, y, src }) => addMarker(x, y, src, miniMapWidth, miniMapHeight));
     };
+
+
+  } catch (error) {
+    console.error('Error fetching data.json', error);
   }
-
-  document.getElementById('modal-360').style.display = 'block';
 }
 
-function closeModal() {
-  document.getElementById('modal-360').style.display = 'none';
+const closeModal = () => {
+  const modal = document.getElementById('modal-360');
+  modal.style.display = 'none';
 }
 
 
-function add_marker(x, y, src, width, height) {
-  let markerElement = document.createElement("div");
+const addMarker = (x, y, src, width, height) => {
+  const markerElement = document.createElement("div");
   markerElement.className = "marker";
 
 
-  var markerXPercent = (x / width) * 100;
-  var markerYPercent = (y / height) * 100;
+  const markerXPercent = (x / width) * 100;
+  const markerYPercent = (y / height) * 100;
 
-	markerElement.style.left = markerXPercent + "%";
-	markerElement.style.top = markerYPercent + "%";
+	markerElement.style.left = `${markerXPercent}%`;
+	markerElement.style.top = `${markerYPercent}%`;
 
-  markerElement.onclick = function() {
-    renewProjection(this, src);
+  markerElement.onclick = () => {
+    renewProjection(markerElement, src);
   }
 
   const markersContainer = document.getElementById("markers");
 	markersContainer.append(markerElement);
 }
 
-function renewProjection(el, src) {
+const renewProjection = (el, src) => {
   document.querySelectorAll(".marker").forEach((element) => {
     element.classList.remove("marker-active");
   });
