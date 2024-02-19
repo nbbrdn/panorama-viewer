@@ -46,8 +46,8 @@ body {
     top: 15px;
     right: 15px;
     cursor: pointer;
-    width: 24px; 
-    height: 24px; 
+    width: 35px; 
+    height: 35px; 
     border-radius: 50%; 
     background-color: white; 
     padding: 5px; 
@@ -57,14 +57,32 @@ body {
     justify-content: center; 
 }
 
-.close-button svg {
-    fill: black; 
+.close-icon {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.close-icon svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    fill: black;
+}
+
+.close-button:hover {
+    background-color: red;
+}
+
+.close-button:hover .close-icon svg {
+    fill: white;
 }
 
 .map-box{
     position: absolute;
     z-index: 2;
-    width: 15%;
+    width: 25%;
     top: 4px;
     left: 4px;
     opacity: 50%
@@ -80,15 +98,44 @@ body {
     height: 100%;
 }
 
+.markers{
+    pointer-events: visible; 
+}
+
 .marker{
-    width: 10px;
-    height: 10px;
-    background: #00FFFF;
+    width: 15px;
+    height: 15px;
+    background: green;
     position: absolute;
     cursor: pointer;
-    left: 0%;
-    top: 0%;
+    border-radius: 50%;
+    transition: background-color 0.3s;
 }
+
+.marker::before {
+    content: "";
+    position: absolute;
+    width: 40px; 
+    height: 40px; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.marker:hover {
+    background-color: red;
+}
+
+.marker:hover::before {
+    opacity: 1;
+}
+
 .marker-active{
-    background: #ff0000;
+    background: blue;
+}
+
+.marker-active::before {
+    opacity: 1;
 }
