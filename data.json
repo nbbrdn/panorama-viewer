@@ -2,23 +2,23 @@
     "plane": "images/plane.png",
     "markers": [
         {
-            "x": 110,
-            "y": 85,
+            "x": 30,
+            "y": 30,
             "src": "images/marker1.jpg"
         },
         {
-            "x": 110,
-            "y": 190,
+            "x": 30,
+            "y": 70,
             "src": "images/marker2.jpg"
         },
         {
-            "x": 290,
-            "y": 110,
+            "x": 73,
+            "y": 40,
             "src": "images/marker3.jpg"
         },
         {
-            "x": 290,
-            "y": 190,
+            "x": 73,
+            "y": 70,
             "src": "images/marker4.jpg"
         }
     ]

@@ -31,11 +31,7 @@ const showModal = async () => {
     imgMapContainer.src = data.plane;
 
     imgMapContainer.onload = () => {
-      const miniMapContainer = document.getElementById("miniMap");
-      const miniMapWidth = miniMapContainer.offsetWidth;
-      const miniMapHeight = miniMapContainer.offsetHeight;
-
-      data.markers.forEach(({ x, y, src }) => addMarker(x, y, src, miniMapWidth, miniMapHeight));
+      data.markers.forEach(({ x, y, src }) => addMarker(x, y, src));
     };
 
 
@@ -50,16 +46,12 @@ const closeModal = () => {
 }
 
 
-const addMarker = (x, y, src, width, height) => {
-  const markerElement = document.createElement("div");
-  markerElement.className = "marker";
+const addMarker = (x, y, src) => {
+    const markerElement = document.createElement("div");
+    markerElement.className = "marker";
 
-
-  const markerXPercent = (x / width) * 100;
-  const markerYPercent = (y / height) * 100;
-
-	markerElement.style.left = `${markerXPercent}%`;
-	markerElement.style.top = `${markerYPercent}%`;
+    markerElement.style.left = `${x}%`;
+	markerElement.style.top = `${y}%`;
 
   markerElement.onclick = () => {
     renewProjection(markerElement, src);
