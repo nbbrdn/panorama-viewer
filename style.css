@@ -135,6 +135,7 @@ body {
 
 .marker-active{
     background: red;
+    transition: background-color 0.3s;
 }
 
 .marker-active::before {

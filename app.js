@@ -1,4 +1,5 @@
 let viewer360;
+let activeMarker;
 
 
 const showModal = async () => {
@@ -31,7 +32,12 @@ const showModal = async () => {
     imgMapContainer.src = data.plane;
 
     imgMapContainer.onload = () => {
-      data.markers.forEach(({ x, y, src }) => addMarker(x, y, src));
+      data.markers.forEach(({ x, y, src }) => {
+        const markerElement = addMarker(x, y, src);
+        if (src == data.markers[0].src) {
+          setActiveMarker(markerElement);
+        }
+      });
     };
 
 
@@ -59,6 +65,7 @@ const addMarker = (x, y, src) => {
 
   const markersContainer = document.getElementById("markers");
 	markersContainer.append(markerElement);
+  return markerElement;
 }
 
 const renewProjection = (el, src) => {
@@ -74,3 +81,11 @@ const renewProjection = (el, src) => {
   });
 }
 
+const setActiveMarker = (el) => {
+  if (activeMarker) {
+    activeMarker.classList.remove("marker-active");
+  }
+
+  el.classList.add("marker-active");
+  activeMarker = el;
+}
