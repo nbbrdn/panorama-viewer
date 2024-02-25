@@ -14,6 +14,12 @@ const showModal = async () => {
 
     const data = await response.json();
 
+    const viewerContainer = document.getElementById("viewer");
+    const isMobile = window.innerWidth < 600;
+
+    const viewerClass = isMobile ? "is-9by16" : "is-16by9";
+    viewerContainer.classList.add(viewerClass);
+
     viewer360 = new View360("#viewer", {
       initialZoom: 0.5,
       autoplay: {
